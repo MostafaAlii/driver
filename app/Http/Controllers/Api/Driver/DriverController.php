@@ -28,11 +28,12 @@ class DriverController extends Controller {
         }
     }
 
-    public function show_profile_driver(Request $request) {
+    public function show_profile_driver(Request $request)
+    {
         try {
             return $this->successResponse(new DriverResources(Driver::findorfail(auth('driver-api')->user()->id)), 'data Return Successfully');
         } catch (\Exception $exception) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Please Login First'], 401);
         }
     }
 

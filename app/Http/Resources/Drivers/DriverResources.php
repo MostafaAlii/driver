@@ -22,7 +22,7 @@ class DriverResources extends JsonResource
             'phone' => $this->phone,
             'status' => $this->status,
             'profile' => new DriverProfileResources($this->profile),
-            'images' => $this->getFirstMediaUrl(Driver::COLLECTION_NAME) ?? asset('dashboard/default/default_admin.jpg'),
+            //'images' => $this->getFirstMediaUrl(Driver::COLLECTION_NAME) ?? asset('dashboard/default/default_admin.jpg'),
         ];
     }
 }

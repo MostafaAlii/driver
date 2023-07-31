@@ -8,7 +8,7 @@ class AppServiceProvider extends ServiceProvider {
     }
 
     public function boot(): void {
-        //$settings = Settings::checkSettings();
-        //view()->share('setting', $settings);
+        $settings = Settings::checkSettings();
+        view()->share('setting', $settings);
     }
 }

@@ -27,7 +27,10 @@ class MainSettingRepository implements MainSettingRepositoryInterface
             ]);
         }
         if ($request->hasFile('image')) {
-            $setting->addMediaFromRequest('image')->toMediaCollection(Settings::COLLECTION_NAME);
+            $logo = $request->file('image');
+            $logoName = 'logo.' . $logo->getClientOriginalExtension();
+            $logo->move(public_path("dashboard/images/settings/"), $logoName);
+            $setting->update(['image' => $logoName]);
         }
         $notification = [
             'message' => 'Settings updated successfully',

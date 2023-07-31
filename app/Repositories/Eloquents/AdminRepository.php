@@ -7,7 +7,9 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\DataTables\AdminDataTable;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\Contracts\AdminRepositoryInterface;
+
 class AdminRepository implements AdminRepositoryInterface {
     public function __construct(protected AdminDatatable $adminDataTable) {
         $this->adminDataTable = $adminDataTable;
@@ -79,24 +81,36 @@ class AdminRepository implements AdminRepositoryInterface {
             $validatedData = $request->validate([
                 'name' => 'sometimes|string|max:255',
                 'email' => 'sometimes|string|email|max:255|unique:admins,email,' . $admin->id,
-                'image' => 'sometimes|nullable',
                 'status' => 'sometimes|in:active,inactive',
                 'type' => 'sometimes|in:supervisor,admin,general',
                 'country_id' => 'required|exists:countries,id',
+                'avatar' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:2048',
+                'phone' => 'sometimes|nullable|numeric|digits_between:8,20|unique:admins,phone,' . $admin->id,
             ]);
-            if ($request->hasFile('image'))
-                $admin->addMediaFromRequest('image')->toMediaCollection(Admin::COLLECTION_NAME);
-            $admin->update($validatedData);
+    
+            DB::transaction(function () use ($admin, $validatedData, $request) {
+                if ($request->hasFile('avatar')) {
+                    $avatar = $request->file('avatar');
+                    $avatarName = 'avatar.' . $avatar->getClientOriginalExtension();
+                    $avatar->move(public_path("dashboard/images/admins/{$admin->email}{$admin->phone}_{$admin->profile->uuid}"), $avatarName);
+                    $validatedData['avatar'] = $avatarName;
+                    $admin->profile()->update(['avatar' => $avatarName]);
+                }
+    
+                $admin->update($validatedData);
+            });
+    
             $notification = array(
                 'message' => 'Admin updated successfully',
                 'alert-type' => 'success'
             );
+    
             return redirect()->route('admins.index')->with($notification);
-
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+    
 
     protected function getAdmin($id) {
         return Admin::whereHas('profile', function ($query) use ($id) {

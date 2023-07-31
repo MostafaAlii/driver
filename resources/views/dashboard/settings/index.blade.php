@@ -100,7 +100,11 @@
                         <div class="form-group col-md-6">
                             <label for="image">App Icon</label>
                             <input type="file" class="form-control" name="image" id="image" >
-                            <img src="{{$setting?->getFirstMediaUrl(Settings::COLLECTION_NAME);}}" class="img-fluid" style="width: 50px; height: 50px; border-radius: 50%;">
+                                @if(empty($setting->image))
+                                    <img src="{{asset('dashboard/default/default_logo.jpg')}}" class="img-fluid" style="width: 50px; height: 50px; border-radius: 50%;">
+                                @else
+                                <img src="{{asset('dashboard/images/settings') .'/' . $setting?->image}}" class="img-fluid" style="width: 50px; height: 50px; border-radius: 50%;">
+                                @endif
                             @error('image')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

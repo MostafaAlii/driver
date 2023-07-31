@@ -214,6 +214,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Country' => App\Models\Country::class,
     ])->toArray(),
 
 ];

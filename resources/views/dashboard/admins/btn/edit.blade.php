@@ -13,11 +13,12 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <img class="center"
-                             src="{{ $admin->getFirstMediaUrl(Admin::COLLECTION_NAME) ? $admin->getFirstMediaUrl(Admin::COLLECTION_NAME) : asset('dashboard/default/default_admin.jpg') }}"
-                             alt="" style="width: 100px; height: 100px; border-radius: 50%;">
-                        <label for="image">Avatar</label>
-                        <input id="image" type="file" name="image" class="form-control">
+                        <img class="center" src="{{ !empty($admin->profile->avatar)
+                            ? asset("dashboard/images/admins/{$admin->email}{$admin->phone}_{$admin->profile->uuid}/{$admin->profile->avatar}")
+                            : asset('dashboard/default/default_admin.jpg') }}"
+                            alt="" style="width: 100px; height: 100px; border-radius: 50%;">                        
+                        <label for="avatar">Avatar</label>
+                        <input id="avatar" type="file" name="avatar" class="form-control">
                         <small class="form-text text-muted">Maximum file size is 10 MB</small>
                     </div>
                     <div class="form-group">
@@ -32,6 +33,18 @@
                     <div class="form-group">
                         <label for="phone">Phone</label>
                         <input id="phone" type="phone" name="phone" class="form-control" value="{{ $admin->phone }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country_id">Country</label>
+                        <select name="country_id" id="country_id" class="form-control p-1">
+                            <option value="" disabled>Select a country</option>
+                            @foreach(Country::active() as $country)
+                                <option value="{{ $country->id }}" {{ $admin->country_id == $country->id ? 'selected' : '' }}>
+                                    {{ $country->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">

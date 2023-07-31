@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->text('bio')->nullable();
             $table->foreignId('admin_id')->index()->constrained()->cascadeOnDelete();
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }

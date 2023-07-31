@@ -22,6 +22,6 @@ class Country extends Model
     }
 
     public static function active() {
-        return self::whereStatus(true);
+        return self::whereStatus(true)->get();
     }
 }

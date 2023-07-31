@@ -24,13 +24,10 @@ class AdminDataTable extends BaseDataTable {
             ->addColumn('checkbox', function (Admin $admin) {
                 return view('dashboard.admins.btn.checkbox', compact('admin'));
             })
-            ->addColumn('image', function (Admin $admin) {
-                $image = $admin->getFirstMediaUrl(Admin::COLLECTION_NAME);
-                return '<a href="' . route('admins.show', $admin->profile->uuid) . '">'
-                    . (!empty($image)
-                        ? '<img src="' . $image . '" class="img-fluid" style="width: 50px; height: 50px; border-radius: 50%;">'
-                        : '<img src="' . asset('dashboard/default/default_admin.jpg') . '" class="img-fluid" style="width: 50px; height: 50px; border-radius: 50%;">')
-                    . '</a>';
+            ->editColumn('avatar', function (Admin $admin) {
+                if (empty($admin->profile->avatar))
+                    return '<img src="' . asset('dashboard/default/default_admin.jpg') . '" class="img-fluid" style="width: 50px; height: 50px; border-radius: 50%;" />';
+                return '<img src="' . asset('dashboard/images/admins/' . $admin->email . $admin->phone . '_' . $admin->profile->uuid  . '/' . $admin->profile->avatar) . '" class="img-fluid" style="width: 50px; height: 50px; border-radius: 50%;" />';
             })
             ->editColumn('created_at', function (Admin $admin) {
                 return $this->formatBadge($this->formatDate($admin->created_at));
@@ -47,7 +44,7 @@ class AdminDataTable extends BaseDataTable {
             ->editColumn('status', function (Admin $admin) {
                 return $this->formatStatus($admin->status);
             })
-            ->rawColumns(['action', 'checkbox', 'created_at', 'updated_at', 'name', 'type', 'status', 'image']);
+            ->rawColumns(['action', 'checkbox', 'created_at', 'updated_at', 'name', 'type', 'status', 'avatar']);
     }
 
     public function query(): QueryBuilder {
@@ -69,7 +66,7 @@ class AdminDataTable extends BaseDataTable {
         return [
             ['name' => 'checkbox', 'data' => 'checkbox', 'title' => '<input type="checkbox" class="check_all" onclick="check_all()" />', 'orderable' => false, 'searchable' => false,],
             ['name' => 'id', 'data' => 'id', 'title' => '#', 'orderable' => false, 'searchable' => false,],
-            ['name' => 'image', 'data' => 'image', 'title' => 'Image', 'orderable' => false, 'searchable' => false,],
+            ['name' => 'avatar', 'data' => 'avatar', 'title' => 'Avatar', 'orderable' => false, 'searchable' => false,],
             ['name' => 'name', 'data' => 'name', 'title' => 'Name',],
             ['name' => 'email', 'data' => 'email', 'title' => 'Email',],
             ['name' => 'country', 'data' => 'country.name', 'title' => 'country', 'orderable' => false, 'searchable' => false,],

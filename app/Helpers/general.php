@@ -1,29 +1,5 @@
 <?php
-
 use App\{Models\Admin, Enums\Admin\AdminTypes};
-use App\Models\MediaStatus;
-
-if (!function_exists('checkStatusMedia')) {
-    function checkStatusMedia($id_media)
-    {
-        $mediaStatus = MediaStatus::where('media_id', $id_media)->first();
-// dd($mediaStatus);
-        if ($mediaStatus) {
-            switch ($mediaStatus->status) {
-                case MediaStatus::ACCEPTED:
-                    return MediaStatus::ACCEPTED;
-                    break;
-                case MediaStatus::REJECTED:
-                    return MediaStatus::REJECTED;
-                    break;
-                default:
-                    return MediaStatus::NOT_ACTIVE;
-            }
-        }
-    }
-}
-
-
 if (!function_exists('get_user_data')) {
     function get_user_data()
     {
@@ -41,7 +17,7 @@ if (!function_exists('checkTypeAdmin')) {
     {
         $data = [
             'user' => get_user_data(),
-            'query' => Admin::where('email', '!=', get_user_data()->email)->with(['profile', 'media', 'country'])->orderBy('id', 'ASC')
+            'query' => Admin::where('email', '!=', get_user_data()->email)->with(['profile', 'country'])->orderBy('id', 'ASC')
         ];
         if ($data['user']->type !== \App\Enums\Admin\AdminTypes::GENERAL) {
             if ($data['user']->type === 'admin' || $data['user']->type === 'supervisor')

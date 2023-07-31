@@ -30,6 +30,7 @@ class Settings extends Model implements HasMedia {
         'ocean',
         'company_commission',
         'company_tax',
+        'image'
     ];
 
     protected $with = ['translations'];
