@@ -1,0 +1,1 @@
+<input type="checkbox" name="item[]" value="{{ $admin->id }}" class="item_checkbox" />
