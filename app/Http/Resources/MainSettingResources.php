@@ -29,7 +29,7 @@ class MainSettingResources extends JsonResource {
             'address' => $this->translations->keyBy('locale')->map->only('address'),
             'description' => $this->translations->keyBy('locale')->map->only('description'),
             'road_toll' => $this->translations->keyBy('locale')->map->only('road_toll'),
-            'app_icon' => $this->getFirstMediaUrl(Settings::COLLECTION_NAME),
+            'app_icon' => $this->image ? asset('dashboard/images/settings/' . $this->image) : asset('dashboard/default/default_logo.jpg'),
         ];
     }
 }
