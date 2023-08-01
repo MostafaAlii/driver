@@ -42,7 +42,7 @@ class UserAuthController extends Controller
 
         if (!empty($checkEmail->email_verified_at)) {
             if (!$token = auth('user-api')->attempt($validator->validated())) {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return response()->json(['error' => 'Invalid Phone Or Password'], 401);
             }
             return $this->createNewToken($token);
         } else {
@@ -66,7 +66,7 @@ class UserAuthController extends Controller
             'country_id' => 'required|numeric|exists:countries,id',
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return response()->json(['error' => $validator->errors()->first()], 401);
         }
         try {
             $user = User::create(array_merge(
@@ -86,7 +86,7 @@ class UserAuthController extends Controller
                 'user' => $user
             ], 201);
         } catch (\Exception $exception) {
-            return response()->json($exception->getMessage(), 400);
+            return response()->json($exception->getMessage(), 401);
         }
 
     }
