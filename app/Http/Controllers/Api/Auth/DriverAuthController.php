@@ -6,6 +6,7 @@ use App\Events\Api\SendOtpEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\{DB};
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\Drivers\DriverProfileResources;
 
 class DriverAuthController extends Controller {
     public function __construct() {
@@ -95,7 +96,17 @@ class DriverAuthController extends Controller {
             'token_type' => 'bearer',
             'expires_in' => auth('driver-api')->factory()->getTTL() * 60,
             'driver' => auth('driver-api')->user(),
-            'profile' => $this->driverProfile()
+            'profile' => $this->driverProfile(),
+            'profile_avatar' => $this->getAvatarUrl()
         ]);
     }
+
+    private function getAvatarUrl() {
+        $avatar = auth('driver-api')->user()->profile->avatar;
+        if ($avatar) {
+            return asset('dashboard/images/driver_document/' . auth('driver-api')->user()->profile->owner->email . auth('driver-api')->user()->profile->owner->phone . '_' . auth('driver-api')->user()->profile->uuid . '/' . auth('driver-api')->user()->profile->avatar);
+        }
+        return asset('dashboard/default/default_admin.jpg');
+    }
+
 }

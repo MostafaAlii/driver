@@ -71,7 +71,7 @@ class UserAuthController extends Controller
         try {
             $user = User::create(array_merge(
                 $validator->validated(),
-                ['password' => bcrypt($request->password)]
+                ['password' => bcrypt($request->password), 'email_verified_at' => now()]
             ));
 
             $data = [
