@@ -97,7 +97,7 @@ class DriverAuthController extends Controller {
             'expires_in' => auth('driver-api')->factory()->getTTL() * 60,
             'driver' => auth('driver-api')->user(),
             'profile' => $this->driverProfile(),
-            'profile_avatar' => $this->getAvatarUrl()
+            //'profile_avatar' => $this->getAvatarUrl()
         ]);
     }
 

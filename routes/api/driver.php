@@ -36,6 +36,7 @@ Route::group(['prefix' => 'driver'], function () {
         Route::post('upload-personal-images', [DriverController::class, 'uploadPersonalImages'])->name('uploadPersonalImages');
         Route::post('upload_license', [DriverController::class, 'uploadLicense'])->name('upload_license');
         Route::post('check-profile-media', [DriverController::class, 'checkProfileMedia'])->name('checkProfileMedia');
+        Route::post('getProfileInfo', [DriverController::class, 'getProfileInfo'])->name('getProfileInfo');
     });
 
 });

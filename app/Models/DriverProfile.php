@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class DriverProfile extends BaseModel {
     protected $table = 'driver_profiles';
     protected $fillable = ['status', 'name', 'bio', 'driver_id', 
@@ -22,5 +24,9 @@ class DriverProfile extends BaseModel {
 
     public function car_model(): BelongsTo {
         return $this->belongsTo(related: CarModel::class, foreignKey: 'car_model_id');
+    }
+
+    public function profileMedia(): HasMany {
+        return $this->hasMany(related: DriverProfileMedia::class, foreignKey: 'driver_profile_id');
     }
 }

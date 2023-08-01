@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Driver;
 
+use App\Models\User;
 use App\Models\Driver;
 use Illuminate\Http\Request;
 use App\Models\DriverProfile;
@@ -273,4 +274,47 @@ class DriverController extends Controller {
         }
         return true;
     }
+
+    
+    public function getProfileInfo(Request $request) {
+        $id = $request->input('id');
+        $type = $request->input('type');
+
+        if ($type === 'user') {
+            $user = User::find($id)->with(['profile'])->first();
+            $user->profile->avatar = $user->profile->avatar ? asset('dashboard/images/user_document/' . $user->email . '_' . $user->phone . '_' . $user->profile->uuid . '/' . $user->profile->avatar) : asset('dashboard/default/default_admin.jpg');
+            if (!$user) {
+                return $this->errorResponse('User not found', 404);
+            }
+
+            return $this->successResponse([
+                'user' => $user,
+            ]);
+        } elseif ($type === 'driver') {
+            $driver = Driver::find($id)->with(['profile' => function ($query) {
+                $query->with(['profileMedia' => function ($mediaQuery) {
+                    $mediaQuery->select('id', 'driver_profile_id', 'car_front_side', 'car_right_side', 'car_back_side', 'car_left_side', 'car_inside');
+                }]);
+            }])->first();
+            $driver->profile->avatar = $driver->profile->avatar ? asset('dashboard/images/driver_document/' . $driver->email . $driver->phone . '_' . $driver->profile->uuid . '/' . $driver->profile->avatar) : asset('dashboard/default/default_admin.jpg');
+            $driver->profile->profileMedia->map(function ($media) use ($driver) {
+                $media->car_front_side = $media->car_front_side ? asset('dashboard/images/driver_document/' . $driver->email .  $driver->phone . '_' . $driver->profile->uuid . '/' . $media->car_front_side) : null;
+                $media->car_back_side = $media->car_back_side ? asset('dashboard/images/driver_document/' . $driver->email .  $driver->phone . '_' . $driver->profile->uuid . '/' . $media->car_back_side) : null;
+                $media->car_right_side = $media->car_right_side ? asset('dashboard/images/driver_document/' . $driver->email .  $driver->phone . '_' . $driver->profile->uuid . '/' . $media->car_right_side) : null;
+                $media->car_left_side = $media->car_left_side ? asset('dashboard/images/driver_document/' . $driver->email .  $driver->phone . '_' . $driver->profile->uuid . '/' . $media->car_left_side) : null;
+                $media->car_inside = $media->car_inside ? asset('dashboard/images/driver_document/' . $driver->email . $driver->phone . '_' . $driver->profile->uuid . '/' . $media->car_inside) : null;
+                return $media;
+            });
+            if (!$driver) {
+                return $this->errorResponse('Driver not found', 404);
+            }
+            return $this->successResponse([
+                'driver' => $driver,
+            ]);
+        } else {
+            return $this->errorResponse('Invalid type', 401);
+        }
+    }
+
+
 }
