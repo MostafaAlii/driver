@@ -54,18 +54,6 @@ class DriverController extends Controller implements DriverRepositoryInterface {
         return $this->driverInterface->updateApprovalTripStatus($request, $driver);
     }
 
-    public function mediaStatus(Request $request, $id) {
-        return $this->driverInterface->mediaStatus($request, $id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
