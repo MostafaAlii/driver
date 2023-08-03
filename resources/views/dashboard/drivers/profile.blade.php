@@ -2,6 +2,12 @@
 @section('css')
 <link href="{{ URL::asset('assets/css/plugins/toastr.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<style>
+.images-grid {display: grid;grid-template-columns: repeat(3, 1fr);gap: 10px;}
+.image-container {display: flex;flex-direction: column;align-items: center;}
+.image-container img {max-width: 100%;}
+.image-container span {margin-top: 5px;}
+</style>
 @section('title')
 {{$title}}
 @stop

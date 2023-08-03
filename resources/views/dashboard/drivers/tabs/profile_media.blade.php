@@ -36,68 +36,74 @@
     @endphp
 
     @if ($noMediaFound)
-        <tr>
-            <td colspan="2">
-                <div class="alert alert-warning" role="alert">
-                    <strong>Warning!</strong> No media found.
-                </div>
-            </td>
-        </tr>
+    <tr>
+        <td colspan="2">
+            <div class="alert alert-warning" role="alert">
+                <strong>Warning!</strong> No media found.
+            </div>
+        </td>
+    </tr>
     @else
-        <div class="col-md-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
-                    <div class="accordion plus-icon shadow">
-                        {{-- Accept Images --}}
-                        <div class="acd-group">
-                            <a href="#" class="acd-heading">Accept Images</a>
-                            <div class="acd-des">
-                                @foreach ($imagesByStatus['accept'] as $column)
-                                    <img src="{{ $response[$column]['image'] }}" alt="{{ \Str::ucfirst(str_replace('_', ' ', pathinfo($response[$column]['image'], PATHINFO_FILENAME))) }}" width="100">
+    <div class="col-md-12 mb-30">
+        <div class="card card-statistics h-100">
+            <div class="card-body">
+                <div class="accordion plus-icon shadow">
+                    {{-- Accept Images --}}
+                    <div class="acd-group">
+                        <a href="#" class="acd-heading">Accept Images</a>
+                        <div class="acd-des images-grid">
+                            @foreach ($imagesByStatus['accept'] as $column)
+                                <div class="image-container">
+                                    <img class="rounded" src="{{ $response[$column]['image'] }}" alt="{{ \Str::ucfirst(str_replace('_', ' ', pathinfo($response[$column]['image'], PATHINFO_FILENAME))) }}" width="100">
                                     <span>{{ \Str::ucfirst(str_replace('_', ' ', pathinfo($response[$column]['type'], PATHINFO_FILENAME))) }}</span>
-                                @endforeach
-                                @if (empty($imagesByStatus['accept']))
-                                    <div class="alert alert-warning" role="alert">
-                                        <strong>Warning!</strong> No accepted images found.
-                                    </div>
-                                @endif
-                            </div>
+                                </div>
+                            @endforeach
+                            @if (empty($imagesByStatus['accept']))
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Warning!</strong> No accepted images found.
+                                </div>
+                            @endif
                         </div>
+                    </div>
 
-                        {{-- Reject Images --}}
-                        <div class="acd-group">
-                            <a href="#" class="acd-heading">Reject Images</a>
-                            <div class="acd-des">
-                                @foreach ($imagesByStatus['reject'] as $column)
-                                    <img src="{{ $response[$column]['image'] }}" alt="{{ \Str::ucfirst(str_replace('_', ' ', pathinfo($response[$column]['image'], PATHINFO_FILENAME))) }}" width="100">
+                    {{-- Reject Images --}}
+                    <div class="acd-group">
+                        <a href="#" class="acd-heading">Reject Images</a>
+                        <div class="acd-des images-grid">
+                            @foreach ($imagesByStatus['reject'] as $column)
+                                <div class="image-container">
+                                    <img class="rounded" src="{{ $response[$column]['image'] }}" alt="{{ \Str::ucfirst(str_replace('_', ' ', pathinfo($response[$column]['image'], PATHINFO_FILENAME))) }}" width="100">
                                     <span>{{ \Str::ucfirst(str_replace('_', ' ', pathinfo($response[$column]['type'], PATHINFO_FILENAME))) }}</span>
-                                @endforeach
-                                @if (empty($imagesByStatus['reject']))
-                                    <div class="alert alert-warning" role="alert">
-                                        <strong>Warning!</strong> No rejected images found.
-                                    </div>
-                                @endif
-                            </div>
+                                </div>
+                            @endforeach
+                            @if (empty($imagesByStatus['reject']))
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Warning!</strong> No rejected images found.
+                                </div>
+                            @endif
                         </div>
+                    </div>
 
-                        {{-- Not Active Images --}}
-                        <div class="acd-group">
-                            <a href="#" class="acd-heading">Not Active Images</a>
-                            <div class="acd-des">
-                                @foreach ($imagesByStatus['not_active'] as $column)
-                                    <img src="{{ $response[$column]['image'] }}" alt="{{ \Str::ucfirst(str_replace('_', ' ', pathinfo($response[$column]['image'], PATHINFO_FILENAME))) }}" width="100">
+                    {{-- Not Active Images --}}
+                    <div class="acd-group">
+                        <a href="#" class="acd-heading">Not Active Images (Waiting)</a>
+                        <div class="acd-des images-grid">
+                            @foreach ($imagesByStatus['not_active'] as $column)
+                                <div class="image-container">
+                                    <img class="rounded" src="{{ $response[$column]['image'] }}" alt="{{ \Str::ucfirst(str_replace('_', ' ', pathinfo($response[$column]['image'], PATHINFO_FILENAME))) }}" width="100">
                                     <span>{{ \Str::ucfirst(str_replace('_', ' ', pathinfo($response[$column]['type'], PATHINFO_FILENAME))) }}</span>
-                                @endforeach
-                                @if (empty($imagesByStatus['not_active']))
-                                    <div class="alert alert-warning" role="alert">
-                                        <strong>Warning!</strong> No not active images found.
-                                    </div>
-                                @endif
-                            </div>
+                                </div>
+                            @endforeach
+                            @if (empty($imagesByStatus['not_active']))
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Warning!</strong> No not active images found.
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     @endif
 </div>
