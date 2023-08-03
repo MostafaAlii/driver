@@ -4,7 +4,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 trait ApiResponseTrait {
     protected function apiResponse(bool $success, $data = null, ?string $message = null, int $statusCode = 200): JsonResponse {
-        $response = ['success' => $success,];
+        $response = ['status' => $success,];
 
         if ($message !== null)
             $response['message'] = $message;

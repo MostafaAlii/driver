@@ -24,6 +24,6 @@ class DriverProfileMedia extends Model {
     }
 
     public function mediaFilesStatus() {
-        return $this->hasOne(MediaFilesStatus::class);
+        return $this->hasOne(MediaFilesStatus::class, 'driver_profiles_media_id');
     }
 }

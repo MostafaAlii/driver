@@ -137,12 +137,12 @@
                                        
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="document-03-tab" data-toggle="tab" href="#document-03" role="tab" aria-controls="document-03" aria-selected="false">Documents</a>
+                                            <a class="nav-link" id="document-03-tab" data-toggle="tab" href="#document-03" role="tab" aria-controls="document-03" aria-selected="false">Media</a>
                                         </li>
 
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="document-04-tab" data-toggle="tab" href="#document-04" role="tab" aria-controls="document-04" aria-selected="false">Images Upload</a>
+                                            <a class="nav-link" id="document-04-tab" data-toggle="tab" href="#document-04" role="tab" aria-controls="document-04" aria-selected="false">Media Status</a>
                                         </li>
                                        
                                     </ul>
@@ -150,14 +150,14 @@
                                     <div class="tab-content">
                                         <!-- Start Profile Contents -->
                                     
-                                        @include('dashboard.drivers.tap1')
+                                        @include('dashboard.drivers.tabs.profile_content')
                                         <!-- End Profile Contents -->
 
 
-                                        @include('dashboard.drivers.tap2')
+                                        @include('dashboard.drivers.tabs.profile_media')
 
 
-                                        @include('dashboard.drivers.tap3')
+                                        @include('dashboard.drivers.tabs.profile_media_status')
 
 
                                      

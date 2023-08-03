@@ -14,7 +14,6 @@ interface DriverRepositoryInterface {
     public function show(string $id);
     public function updateStatus(Request $request, Driver $driver);
     public function updateApprovalTripStatus(Request $request, Driver $driver);
-    public function mediaStatus(Request $request, $id);
     public function update(Request $request, $id);
     public function destroy(Request $request, $id);
     public function forceDelete(Request $request, $id);

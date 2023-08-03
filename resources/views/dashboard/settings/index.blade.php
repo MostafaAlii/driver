@@ -4,6 +4,11 @@
     .ck-editor__editable_inline {
     min-height: 200px;
 }
+.acd-des-flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 </style>
 @section('title')
 {{$title}}
@@ -313,6 +318,30 @@
                         </div>
                         
                     </div>
+                    <br>
+                    <!-- Start Security Accordion -->
+                    <div class="form-row">
+                        <div class="col-lg-12 mb-30">     
+                            <div class="card card-statistics h-100"> 
+                                <div class="card-body">   
+                                <h5 class="card-title">Security Panel</h5>
+                                    <div class="accordion plus-icon shadow">
+                                        <div class="acd-group">
+                                            <a href="#" class="acd-heading">Api Secret Key :</a>
+                                            <div class="acd-des acd-des-flex">
+                                                <label class="col-form-label" for="api_secret_key">Api Secret Key</label>
+                                                <input type="text" name="api_secret_key" id="api_secret_key" readonly value="{{ $setting?->api_secret_key }}" class="form-control" placeholder="Api Secret Key">
+                                                <button type="button" id="generateKeyBtn" class="btn btn-success">
+                                                    <i class="fa fa-key"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                    <!-- End Security Accordion -->
                     <!-- Start Submit Form -->
                     <hr>
                     <div class="form-row">
@@ -339,5 +368,21 @@
             });
         }
     });
+    document.getElementById('generateKeyBtn').addEventListener('click', function () {
+        var randomKey = generateRandomKey();
+        document.getElementById('api_secret_key').value = randomKey;
+        document.getElementById('randomKeyDisplay').innerText = "Random Key: " + randomKey;
+    });
+
+    function generateRandomKey() {
+        var length = 32;
+        var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var result = "";
+        for (var i = 0; i < length; i++) {
+            var randomIndex = Math.floor(Math.random() * charset.length);
+            result += charset.charAt(randomIndex);
+        }
+        return result;
+    }
 </script>
 @endsection

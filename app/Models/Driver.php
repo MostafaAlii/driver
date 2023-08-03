@@ -10,17 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\{HasOne, BelongsTo};
-
-class Driver extends Authenticatable implements JWTSubject
-{
+class Driver extends Authenticatable implements JWTSubject {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Historyable;
-    const COLLECTION_NAME = 'drivers_avatar'; // الصورة الشخصية
+    const COLLECTION_NAME = 'drivers_avatar'; 
     const DRIVER_OTP = '123';
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $table = 'drivers';
     protected $fillable = [
         'name',
@@ -35,21 +28,11 @@ class Driver extends Authenticatable implements JWTSubject
         'country_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'password' => 'hashed',
     ];

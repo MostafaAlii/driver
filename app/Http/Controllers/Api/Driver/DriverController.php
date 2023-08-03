@@ -279,7 +279,6 @@ class DriverController extends Controller {
     public function getProfileInfo(Request $request) {
         $id = $request->input('id');
         $type = $request->input('type');
-
         if ($type === 'user') {
             $user = User::find($id)->with(['profile'])->first();
             $user->profile->avatar = $user->profile->avatar ? asset('dashboard/images/user_document/' . $user->email . '_' . $user->phone . '_' . $user->profile->uuid . '/' . $user->profile->avatar) : asset('dashboard/default/default_admin.jpg');

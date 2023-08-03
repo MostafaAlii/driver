@@ -55,13 +55,6 @@ class DriverRepository implements DriverRepositoryInterface {
                 'car_model_id' => 'sometimes|exists:car_models,id',
                 'car_number' => 'sometimes|string',
                 'car_color' => 'sometimes|string',
-                'car_front_side' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,|max:2048',
-                'car_back_side' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,|max:2048',
-                'car_right_side' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,|max:2048',
-                'car_left_side' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,|max:2048',
-                'driver_personal_identification_front' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,|max:2048',
-                'driver_personal_identification_back' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,|max:2048',
-                'driver_criminal_record' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,|max:2048',
                 'nationality_id' => 'sometimes|nullable|numeric',
             ]);
             
@@ -76,7 +69,6 @@ class DriverRepository implements DriverRepositoryInterface {
         }   
     }
 
-    
     public function store($request) {
         try {
             $requestData = $request->validated();
@@ -129,27 +121,6 @@ class DriverRepository implements DriverRepositoryInterface {
                 'alert-type' => 'success'
             );
             return redirect()->route('drivers.index')->with($notification);
-        } catch (\Exception $e) {
-            $notification = array(
-                'message' => 'An error occurred: ' . $e->getMessage(),
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
-    }
-
-    public function mediaStatus(Request $request, $id) {
-    
-        try {
-       
-            $mediaStatus = MediaStatus::where('media_id', $id)->first();
-            
-            $mediaStatus->update(['status' => $request->status]);
-            $notification = array(
-                'message' => 'Media status updated successfully',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             $notification = array(
                 'message' => 'An error occurred: ' . $e->getMessage(),

@@ -27,6 +27,7 @@ class Settings extends Model implements HasMedia {
         'waiting_price',
         'country_tax',
         'kilo_price',
+        'api_secret_key',
         'ocean',
         'company_commission',
         'company_tax',
