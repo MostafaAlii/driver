@@ -69,7 +69,6 @@ class DriverRepository implements DriverRepositoryInterface {
         }   
     }
 
-    
     public function store($request) {
         try {
             $requestData = $request->validated();

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->nullable()->unique();
             $table->unsignedFloat('version')->nullable();
             $table->string('image')->nullable();
+            $table->string('api_secret_key')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
