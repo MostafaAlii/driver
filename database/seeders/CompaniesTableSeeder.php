@@ -14,7 +14,7 @@ class CompaniesTableSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
-        DB::table('sos')->truncate();
+        DB::table('companies')->truncate();
         Company::factory()->count(20)->create();
         Schema::enableForeignKeyConstraints();
     }

@@ -63,6 +63,7 @@
                             <li><a href="{{route('cities.index')}}">City</a></li>
                             <li><a href="{{route('carMake.index')}}">Car Make</a></li>
                             <li><a href="{{route('carModel.index')}}">Car Model</a></li>
+                            <li><a href="{{route('carType.index')}}">Car Type</a></li>
                         </ul>
                     </li>
 

@@ -36,6 +36,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('carModel', [Api\Setting\CarModelController::class, 'index']);
     Route::get('carModel/{id}', [Api\Setting\CarModelController::class, 'show']);
 
+    // CarType ::
+    Route::get('carType', [Api\Setting\CarTypeController::class, 'index']);
+
     // ServiceLocations ::
     Route::get('serviceLocations', [Api\Setting\ServiceLocationsController::class, 'index']);
     Route::get('serviceLocations/{id}', [Api\Setting\ServiceLocationsController::class, 'show']);

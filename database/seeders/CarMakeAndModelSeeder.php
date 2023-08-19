@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\CarMake;
-use App\Models\CarModel;
+use App\Models\{CarType,CarMake,CarModel};
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -918,8 +917,7 @@ class CarMakeAndModelSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         DB::transaction(function () {
             $allMakesDB = CarMake::all();
 
@@ -948,9 +946,11 @@ class CarMakeAndModelSeeder extends Seeder
                     });
 
                     if (!$modelFound) {
+                        $randomCarType = CarType::inRandomOrder()->first();
                         $data = [
                             'name' => $model,
                             'car_make_id' => $makeId,
+                            'car_type_id' => $randomCarType->id,
                         ];
 
                         CarModel::create($data);
