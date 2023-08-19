@@ -14,6 +14,7 @@ class CarModel extends Model
         'name',
         'status',
         'car_make_id',
+        'car_type_id'
     ];
 
     public function car_make()
@@ -21,8 +22,16 @@ class CarModel extends Model
         return $this->belongsTo(CarMake::class, 'car_make_id');
     }
 
+    public function carType() {
+        return $this->belongsTo(CarType::class, 'car_type_id');
+    }
+
     public function status()
     {
         return $this->status ? 'Active' : 'No Active';
+    }
+
+    public function scopeActive() {
+        return $this->whereStatus(true)->get();
     }
 }

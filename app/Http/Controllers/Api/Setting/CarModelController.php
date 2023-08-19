@@ -15,7 +15,7 @@ class CarModelController extends Controller
     public function index()
     {
         try {
-            return $this->successResponse(CarModelResources::collection(CarModel::all()), 'data Return Successfully');
+            return $this->successResponse(CarModelResources::collection(CarModel::active()), 'data Return Successfully');
         } catch (\Exception $exception) {
             $this->errorResponse('Something went wrong, please try again later');
         }

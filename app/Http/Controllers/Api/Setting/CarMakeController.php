@@ -15,7 +15,7 @@ class CarMakeController extends Controller
     public function index()
     {
         try {
-            return $this->successResponse(CarMakeResources::collection(CarMake::all()), 'data Return Successfully');
+            return $this->successResponse(CarMakeResources::collection(CarMake::active()), 'data Return Successfully');
         } catch (\Exception $exception) {
             $this->errorResponse('Something went wrong, please try again later');
         }

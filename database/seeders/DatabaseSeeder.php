@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             WordChangeStatusSeeder::class,
             AdminTableSeeder::class,
             UserTableSeeder::class,
+            CarTypesSeeder::class,
             CarMakeAndModelSeeder::class,
             ServiceLocationsSeeder::class,
             TimeZonesSeeder::class,

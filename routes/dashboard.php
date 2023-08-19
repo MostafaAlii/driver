@@ -65,6 +65,9 @@ Route::group(
             // CarModel ::
             Route::resource('carModel', Dashboard\carModelController::class);
             Route::post('changeStatusCarModel', [Dashboard\carModelController::class, 'changeStatusCarModel'])->name('changeStatusCarModel');
+
+            // CarType ::
+            Route::resource('carType', Dashboard\CarTypeController::class);
         
             // settingOtp ::
             Route::resource('settingOtp', Dashboard\SettingOtpController::class);
