@@ -26,6 +26,7 @@ class Driver extends Authenticatable implements JWTSubject {
         'lat',
         'lan',
         'country_id',
+        'car_type_id'
     ];
 
     protected $hidden = [
@@ -55,5 +56,9 @@ class Driver extends Authenticatable implements JWTSubject {
 
     public function country(): BelongsTo {
         return $this->belongsTo(related:Country::class, foreignKey:'country_id');
+    }
+
+    public function car_type(): BelongsTo {
+        return $this->belongsTo(related:CarType::class, foreignKey:'car_type_id');
     }
 }

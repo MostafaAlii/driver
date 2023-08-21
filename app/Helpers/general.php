@@ -1,5 +1,7 @@
 <?php
 use App\{Models\Admin, Enums\Admin\AdminTypes};
+use App\Models\CarType;
+
 if (!function_exists('get_user_data')) {
     function get_user_data()
     {
@@ -50,3 +52,16 @@ if (!function_exists('getTypeAdmin')) {
         return $data;
     }
 }
+
+
+/*if (!function_exists('cartype')) {
+    $types = CarType::active();
+    $years = \Carbon::now()->year;
+    if($years > 2010){
+        return $types->name == "A";
+    }elseif($years > 2015){
+        return $types->name == "B";
+    }elseif($years > 2020){ 
+        return $types->name == "C"; 
+    }
+}*/

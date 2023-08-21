@@ -22,14 +22,7 @@ class UserDataTable extends BaseDataTable {
             ->addColumn('checkbox', function (User $user) {
                 return view('dashboard.users.btn.checkbox', compact('user'));
             })
-            ->addColumn('image', function (User $user) {
-                $image = $user->getFirstMediaUrl(User::COLLECTION_NAME);
-                return '<a href="'.route('users.show', $user->profile->uuid).'">'
-                    . (!empty($image)
-                        ? '<img src="' . $image . '" class="img-fluid" style="width: 50px; height: 50px; border-radius: 50%;">'
-                        : '<img src="' . asset('dashboard/default/default_admin.jpg') . '" class="img-fluid" style="width: 50px; height: 50px; border-radius: 50%;">')
-                    . '</a>';
-            })
+            
             ->editColumn('created_at', function (User $user) {
                 return $this->formatBadge($this->formatDate($user->created_at));
             })
@@ -48,22 +41,21 @@ class UserDataTable extends BaseDataTable {
                 return $this->formatStatus($user->status);
             })
             
-            ->rawColumns(['checkbox', 'action','created_at', 'updated_at', 'name', 'status', 'image', 'email_verified_at']);
+            ->rawColumns(['checkbox', 'action','created_at', 'updated_at', 'name', 'status', 'email_verified_at']);
         
             
     }
 
     public function query(): QueryBuilder{
         if(get_user_data()->type == 'general')
-            return User::with(['profile','media', 'country'])->orderBy('id', 'ASC');
-        return User::with(['profile','media', 'country'])->whereCountryId(get_user_data()->country_id)->orderBy('id', 'ASC');
+            return User::with(['profile', 'country'])->orderBy('id', 'ASC');
+        return User::with(['profile', 'country'])->whereCountryId(get_user_data()->country_id)->orderBy('id', 'ASC');
     }
 
     protected function getColumns(): array {
         return [
             ['name' => 'checkbox', 'data' => 'checkbox', 'title' => '<input type="checkbox" class="check_all" onclick="check_all()" />', 'orderable' => false, 'searchable' => false,],
             ['name'=>'id','data'=>'id','title'=>'#','orderable'=>false,'searchable'=>false,],
-            ['name'=>'image','data'=>'image','title'=>'Image','orderable'=>false,'searchable'=>false,],
             ['name'=>'name','data'=>'name','title'=> 'Name',],
             ['name'=>'phone','data'=>'phone','title'=> 'Phone',],
             ['name'=>'email','data'=> 'email','title'=> 'Email',],

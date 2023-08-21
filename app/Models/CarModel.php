@@ -13,17 +13,12 @@ class CarModel extends Model
     protected $fillable = [
         'name',
         'status',
-        'car_make_id',
-        'car_type_id'
+        'car_make_id'
     ];
 
     public function car_make()
     {
         return $this->belongsTo(CarMake::class, 'car_make_id');
-    }
-
-    public function carType() {
-        return $this->belongsTo(CarType::class, 'car_type_id');
     }
 
     public function status()

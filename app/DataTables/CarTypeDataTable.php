@@ -21,10 +21,10 @@ class CarTypeDataTable extends BaseDataTable {
             ->editColumn('status', function (CarType $CarType) {
                 return $this->StatusChange($CarType->status,$CarType->status());
             })
-            ->addColumn('carModel', function (CarType $CarType) {
-                return '<span class="badge badge-info">'.$CarType->carModels->count().'</span>';
+            ->addColumn('carManufactoryYears', function (CarType $CarType) {
+                return '<span class="badge badge-info">'.$CarType->carManufactoryYears->count().'</span>';
             })
-            ->rawColumns(['action', 'status', 'carModel']);
+            ->rawColumns(['action', 'status', 'carManufactoryYears']);
     }
 
     public function query(): QueryBuilder{
@@ -35,7 +35,7 @@ class CarTypeDataTable extends BaseDataTable {
         return [
             ['name'=>'id','data'=>'id','title'=>'#','orderable'=>false,'searchable'=>false,],
             ['name'=>'name','data'=>'name','title'=> 'Name',],
-            ['name'=>'carModel','data'=>'carModel','title'=> 'Car Model','orderable'=>false,'searchable'=>false,],
+            ['name'=>'carManufactoryYears','data'=>'carManufactoryYears','title'=> 'Car Manufactory Years','orderable'=>false,'searchable'=>false,],
             ['name'=>'status','data'=> 'status','title'=> 'Status',],
             ['name'=>'action','data'=> 'action','title'=>'Actions','exportable'=>false,'printable'=>false,'orderable'=>false,'searchable'=>false,],
         ];

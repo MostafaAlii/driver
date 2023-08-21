@@ -946,11 +946,9 @@ class CarMakeAndModelSeeder extends Seeder
                     });
 
                     if (!$modelFound) {
-                        $randomCarType = CarType::inRandomOrder()->first();
                         $data = [
                             'name' => $model,
-                            'car_make_id' => $makeId,
-                            'car_type_id' => $randomCarType->id,
+                            'car_make_id' => $makeId
                         ];
 
                         CarModel::create($data);

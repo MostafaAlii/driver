@@ -4,16 +4,15 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void {
-        Schema::create('car_models', function (Blueprint $table) {
+        Schema::create('car_manufactory_years', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->boolean('status')->default(false);
-            $table->foreignId('car_make_id')->constrained('car_makes')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedSmallInteger('year');
+            $table->foreignId('car_type_id')->constrained('car_types');
             $table->timestamps();
         });
     }
 
     public function down(): void {
-        Schema::dropIfExists('car_models');
+        Schema::dropIfExists('car_manufactory_years');
     }
 };

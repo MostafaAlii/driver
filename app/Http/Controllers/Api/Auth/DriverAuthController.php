@@ -40,12 +40,14 @@ class DriverAuthController extends Controller {
     }
 
     public function register(Request $request) {
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:drivers,email',
             'password' => 'required|string|min:6',
             'phone' => 'required|numeric|unique:drivers,phone',
             'country_id' => 'required|numeric|exists:countries,id',
+            'car_type_id' => 'required|exists:car_types,id',
             'gender' => 'required|in:male,female',
         ]);
         if ($validator->fails()) {
@@ -61,7 +63,8 @@ class DriverAuthController extends Controller {
                 'user_id' => $driver->id,
                 'phone' => $driver->phone,
                 'country_id' => $driver->country->name,
-                'gender' => $driver->gender
+                'gender' => $driver->gender,
+                'car_type' => $driver->car_type->name,
             ];
             event(new SendOtpEvent($data));
             return response()->json([

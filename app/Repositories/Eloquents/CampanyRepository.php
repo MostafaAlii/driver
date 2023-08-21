@@ -54,8 +54,7 @@ class CampanyRepository implements CampanyRepositoryInterface {
         try {
             $requestData = $request->validated();
             $company = Company::create($requestData);
-            if($request->hasFile('image')) 
-                $company->addMediaFromRequest('image')->toMediaCollection(Company::COLLECTION_NAME);
+            
             $notification = array(
                 'message' =>  'Company created successfully',
                 'alert-type' => 'success'
@@ -73,8 +72,7 @@ class CampanyRepository implements CampanyRepositoryInterface {
     public function update(Request $request, $id) {
         try {
             $company = Company::findOrFail($id);
-            if($request->hasFile('image'))
-                $company->addMediaFromRequest('image')->toMediaCollection(Company::COLLECTION_NAME);
+            
             $company->update([
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),

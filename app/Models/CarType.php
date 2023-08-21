@@ -10,8 +10,8 @@ class CarType extends Model {
     protected $fillable = ['name', 'status'];
 
     
-    public function carModels(): HasMany {
-        return $this->hasMany(CarModel::class);
+    public function carManufactoryYears() {
+        return $this->hasMany(CarManufactoryYear::class)->orderBy('year', 'desc');
     }
 
     public function status() {

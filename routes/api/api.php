@@ -79,7 +79,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     // Check (User And Drivers) Is Existing
     Route::post('checkExisting',[Api\Setting\SettingController::class, 'checkExisting']);
-
+    Route::post('checkPhone', [Api\GeneralController::class,'checkPhoneExists']);
     /*Route::get('settings', function () {
         $settings = Settings::checkSettings();
         return new MainSettingResources($settings);

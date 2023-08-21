@@ -12,7 +12,7 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <img class="center" src="{{ $user->getFirstMediaUrl(User::COLLECTION_NAME) ? $user->getFirstMediaUrl(User::COLLECTION_NAME) : asset('dashboard/default/default_admin.jpg') }}" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                        <img class="center" src="{{-- $user->getFirstMediaUrl(User::COLLECTION_NAME)?$user->getFirstMediaUrl(User::COLLECTION_NAME):asset('dashboard/default/default_admin.jpg') --}}" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
                         <label for="image">Avatar</label>
                         <input id="image" type="file" name="image" class="form-control">
                         <small class="form-text text-muted">Maximum file size is 10 MB</small>
