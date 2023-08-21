@@ -143,13 +143,13 @@ class DriverController extends Controller {
             if($validator->fails())
                 return response()->json(array('error' => 'Weak Password'), 401);
             $driver = Driver::wherePhone($request->phone)->first();
-            if (!$driver) 
+            /*if (!$driver) 
                 return $this->errorResponse('The Driver Is not Find');
             $token = DB::table('driver_password_reset_tokens')->wherePhone($request->phone)->first();
             if (!$token) 
                 return $this->errorResponse('The Otp Code Is not Find');
             if ($token->otp != $token->otp) 
-                return $this->errorResponse('The Otp Code Is not Correct');
+                return $this->errorResponse('The Otp Code Is not Correct');*/
             $driver->update(['password' => bcrypt($request->newPassword)]);
             DB::table('driver_password_reset_tokens')->wherePhone($request->phone)->delete();
             return $this->successResponse('The Password has been reset successfully for ' . $driver->name);
