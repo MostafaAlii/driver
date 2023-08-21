@@ -10,10 +10,9 @@ use App\Models\Concerns\History\Historyable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\MediaLibrary\{HasMedia, InteractsWithMedia, MediaCollections\File};
 
-class Settings extends Model implements HasMedia { 
-    use HasFactory, InteractsWithMedia, SoftDeletes, Historyable, Translatable;
+class Settings extends Model{
+    use HasFactory,SoftDeletes, Historyable, Translatable;
     const COLLECTION_NAME = 'setting_app_icon';
     protected $table = "settings";
     protected $fillable = [
@@ -39,15 +38,6 @@ class Settings extends Model implements HasMedia {
 
     public function peekTimeFees(): HasMany{
         return $this->hasMany(SettingPeekTimeFee::class, 'settings_id');
-    }
-
-    public function registerMediaCollections(): void {
-        $this->addMediaCollection(Settings::COLLECTION_NAME)
-            ->singleFile()
-            ->useFallbackUrl(asset('dashboard/default/default_logo.jpg'))
-            ->acceptsFile(function (File $file) {
-                return $file->mimeType === 'image/jpeg' || $file->mimeType === 'image/png';
-            });
     }
 
     public static function checkSettings() {

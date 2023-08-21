@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\History\Historyable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\MediaLibrary\{HasMedia, InteractsWithMedia, MediaCollections\File};
 
-class Company extends Model implements HasMedia
+class Company extends Model
 {
-    use HasFactory , InteractsWithMedia, Historyable, Historyable;
+    use HasFactory , Historyable;
     const COLLECTION_NAME = 'companies_avatar';
     protected $fillable = [
         'name',
@@ -36,15 +35,6 @@ class Company extends Model implements HasMedia
 
     public function status() {
         return $this->status ? 'Active' : 'No Active';
-    }
-
-    public function registerMediaCollections(): void {
-        $this->addMediaCollection(Company::COLLECTION_NAME)
-            ->singleFile()
-            ->useFallbackUrl(asset('dashboard/default/default_company.png'))
-            ->acceptsFile(function (File $file) {
-                return $file->mimeType === 'image/jpeg' || $file->mimeType === 'image/png';
-            });
     }
 
     public function profile(): HasOne {
