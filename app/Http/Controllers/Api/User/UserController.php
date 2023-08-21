@@ -98,10 +98,10 @@ class UserController extends Controller
             if (!$user) 
                 return $this->errorResponse('The User Is not Find');
             $token = DB::table('password_reset_tokens')->wherePhone($request->phone)->first();
-            if (!$token) 
+            /*if (!$token) 
                 return $this->errorResponse('The Otp Code Is not Find');
             if ($token->otp != $token->otp) 
-                return $this->errorResponse('The Otp Code Is not Correct');
+                return $this->errorResponse('The Otp Code Is not Correct');*/
             $user->update(['password' => bcrypt($request->newPassword)]);
             DB::table('password_reset_tokens')->wherePhone($request->phone)->delete();
             return $this->successResponse('The Password has been reset successfully for ' . $user->name);
